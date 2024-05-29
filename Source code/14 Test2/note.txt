@@ -1,0 +1,44 @@
+Pin map: 
+external interrupt: PB1
+output LED: PA7
+
+Clock
+-	AHB clock = 72MHz (max)
+-	APB1 prescaler = 1/8
+		clock after APB1 prescaler = 9MHz
+		clock to TIM2~7 and TIM12~14 = 9x2 = 18MHz
+/*======================================================================================*/
+
+GPIO
+2 - general output
+4 - general input
+
+/*======================================================================================*/
+
+External Interupt
+-	EXTICR (0: portA, 1: portB)
+		AFIO->EXTICR[0] = 0x0010;	// EXTI1: pin3 ~ pin0				
+		AFIO->EXTICR[1] = 0x0000;	// EXTI2: pin7 ~ pin4	
+		AFIO->EXTICR[2] = 0x0000;	// EXTI3: pin11 ~ pin8	
+		AFIO->EXTICR[3] = 0x0000;	// EXTI4: pin15 ~ pin12
+-	IRQfunction:
+		pin0: void EXTI0_IRQHandler(void)
+		pin1: void EXTI1_IRQHandler(void)
+		pin2: void EXTI2_IRQHandler(void)
+		.......
+		pin6: void EXTI6_IRQHandler(void)
+		pin7: void EXTI7_IRQHandler(void)
+		
+/*======================================================================================*/
+
+Timer
+-	APB1 prescaler = 8
+-	Clock after APB1 prescaler = 72/16
+-	TIMx prescaler = 36
+- 	clock to timer 0.5MHz
+=> 50000 count to reach 100ms
+
+chu ki T = (1/f)
+voi f = 50M
+T = 0.002 ms
+so lan dem = (thoi gian mong muon / 0.002
